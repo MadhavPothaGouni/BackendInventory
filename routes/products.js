@@ -1,4 +1,3 @@
-// backend/routes/products.js
 const express = require("express");
 const multer = require("multer");
 const csv = require("csv-parser");
@@ -12,7 +11,7 @@ const upload = multer({ dest: "uploads/" });
 // all product routes below this require a valid JWT
 router.use(authenticate);
 
-// ---------------------- GET ALL PRODUCTS (WITH PAGINATION + SORTING) ----------------------
+// GET ALL PRODUCTS (WITH PAGINATION + SORTING)
 router.get("/", (req, res) => {
   const page = parseInt(req.query.page, 10) || 1;
   const limit = parseInt(req.query.limit, 10) || 5;
@@ -57,7 +56,7 @@ router.get("/", (req, res) => {
   });
 });
 
-// ---------------------- SEARCH PRODUCTS ----------------------
+// SEARCH PRODUCTS
 router.get("/search", (req, res) => {
   const { name } = req.query;
   db.all(
@@ -70,7 +69,7 @@ router.get("/search", (req, res) => {
   );
 });
 
-// ---------------------- CREATE PRODUCT ----------------------
+// CREATE PRODUCT 
 router.post("/", (req, res) => {
   const { name, unit, category, brand, stock, status, image } = req.body;
 
@@ -89,7 +88,7 @@ router.post("/", (req, res) => {
   );
 });
 
-// ---------------------- UPDATE PRODUCT ----------------------
+//  UPDATE PRODUCT 
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { name, unit, category, brand, stock, status, image } = req.body;
@@ -129,7 +128,7 @@ router.put("/:id", (req, res) => {
   });
 });
 
-// ---------------------- DELETE PRODUCT ----------------------
+// DELETE PRODUCT 
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
@@ -139,7 +138,7 @@ router.delete("/:id", (req, res) => {
   });
 });
 
-// ---------------------- GET INVENTORY HISTORY ----------------------
+// GET INVENTORY HISTORY 
 router.get("/:id/history", (req, res) => {
   const { id } = req.params;
 
@@ -159,7 +158,7 @@ router.get("/:id/history", (req, res) => {
   );
 });
 
-// ---------------------- IMPORT CSV ----------------------
+// IMPORT CSV 
 router.post("/import", upload.single("file"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "CSV file required" });

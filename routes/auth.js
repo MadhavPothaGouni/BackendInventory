@@ -1,4 +1,3 @@
-// backend/routes/auth.js
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -16,7 +15,7 @@ function signToken(user) {
   );
 }
 
-// ---------- REGISTER ----------
+// REGISTER 
 router.post("/register", (req, res) => {
   const { email, password } = req.body;
 
@@ -52,7 +51,7 @@ router.post("/register", (req, res) => {
   });
 });
 
-// ---------- LOGIN ----------
+// LOGIN 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -80,7 +79,7 @@ router.post("/login", (req, res) => {
   );
 });
 
-// ---------- CURRENT USER ----------
+// CURRENT USER
 router.get("/me", authenticate, (req, res) => {
   res.json({ id: req.user.id, email: req.user.email });
 });
